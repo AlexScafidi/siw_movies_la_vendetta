@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Gestione film - siw movie</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div><h2>AGGIORNA I FILM</h2></div>
+
+<div><a href="/indexMovies">pagina film</a></div><br>
+<div th:if="${movies.isEmpty()}">Non ci sono film da gestire</div>
+<div th:unless="${movies.isEmpty()}">
+<div>Lista film</div>
+<ul>
+<li th:each="movie : ${movies}">
+ <span th:text="${movie.title} + ' (' + ${movie.year} + ')'"></span> 
+ <a th:href="@{'/formUpdateMovie' + '/' + ${movie.id}}" th:text=" aggiorna"></a>
+</li>
+</ul>
+</div>
+
+</body>
+</html>

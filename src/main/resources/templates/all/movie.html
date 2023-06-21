@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Info film - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+
+<div><a href="/indexMovies">torna alla pagina dei film</a></div>
+<div><a href="/movies">torna alla con tutti i film</a></div>
+<div th:if="${movie} == null">
+ERRORE FILM
+</div>
+<div th_unless="${movie} == null">
+<div th:object="${movie}">
+<div th:text="*{title}"></div>
+<div th:text="*{year}"></div>
+
+
+
+<div th:if="${movie.reviews.isEmpty()}">
+Sei il primo a recensire il film
+</div>
+<div th:unless="${movie.reviews.isEmpty()}">
+<div th:each="review : *{reviews}">
+<div th:text="${review.title} + ' : ' + ${review.vote}"></div>
+<div th:text="${review.text}"></div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

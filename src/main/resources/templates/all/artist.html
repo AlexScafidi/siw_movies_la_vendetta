@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Info artista - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+
+<div><a href="/indexArtists">torna alla pagina dei film</a></div>
+<div th:if="${artist} == null">
+ERRORE FILM
+</div>
+<div th_unless="${artist} == null">
+<div th:object="${artist}">
+<!-- nome -->
+<div th:text="*{name}"></div>
+<!-- cognome -->
+<div th:text="*{surname}"></div>
+<!-- date -->
+<div> 
+[
+<span th:text="*{dateOfBirth}"></span>
+
+<span th:if="*{dateOfDeath != null}">
+--
+<span th:text="*{dateOfDeath}"></span>
+</span>
+]
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

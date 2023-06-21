@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>artists - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+<h3>Tutti i gli artisti</h3>   
+<div><a href="/indexArtists">Torna indietro</a></div>
+
+<div th:if="${artists.isEmpty()}">
+ATTENZIONE : NESSUN FILM PRESENTE NEL SISTEMA</div>
+<div th:unless="${artists.isEmpty()}">
+<div th:each="artist : ${artists}">
+<div th:object="${artist}">
+<a th:text="*{name} + ' ' + *{surname}" th:href="@{'/artists/' + *{id}}"></a>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

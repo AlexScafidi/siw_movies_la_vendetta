@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Inserisci nuovo film - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+
+<a href="/indexMovies">torna indietro</a>
+
+<form method="post" th:object="${movie}" th:action="@{/movies}">
+<div>
+<label for="title">Titolo</label>
+<input type="text" placeholder="Inseririsci il titolo..." th:field="*{title}" id="title" name="titolo" autocapitalize="on">
+</div>
+<div>
+<label for="year">Anno</label>
+<input type="number" placeholder="Inseririsci il titolo..." th:field="*{year}" id="year" name="annoDiUscita" >
+</div>
+<div>
+<span><input type="submit" value="Conferma"></span>
+<span><input type="reset" value="Resetta"></span>
+</div>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>homepage - SW(revenge)</title>
+</head>
+<body>
+
+		<div id="logInOut">
+			<div th:if="${userDetails}" th:object="${userDetails}">
+				<span th:text="*{username}"></span> <a href="/logout">Logout</a>
+			</div>
+			<div th:unless="${userDetails}">
+				<a href="/login">Login</a>
+			</div>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+<div><a href="/indexMovies">Sezione film</a></div>
+<div><a href="/indexArtists">Sezione artisti</a></div>
+
+</body>
+</html>

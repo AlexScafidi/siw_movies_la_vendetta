@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>movies - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+<h3>Tutti i  films</h3>   
+<div><a href="/indexMovies">Torna indietro</a></div>
+
+<div th:if="${movies.isEmpty()}">
+ATTENZIONE : NESSUN FILM PRESENTE NEL SISTEMA</div>
+<div th:unless="${movies.isEmpty()}">
+<div th:each="movie : ${movies}">
+<a th:href="@{'/movies' + '/' + ${movie.id}}"
+   th:text="${movie.title} + ' (' + ${movie.year} + ')'"></a>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Inserisci nuovo artista - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+
+<a href="/indexArtists">torna indietro</a>
+
+<form method="post" th:object="${artist}" th:action="@{/artists}">
+<div>
+<label for="name">Nome</label>
+<input type="text" placeholder="Inseririsci il nome..." th:field="*{name}" id="name" name="nome" autocapitalize="on">
+</div>
+<div>
+<label for="surname">Cognome</label>
+<input type="text" placeholder="Inseririsci il cognome..." th:field="*{surname}" id="surname" name="cognome" autocapitalize="on">
+</div>
+<div>
+<label for="dateOfBirth">Data di nascita</label>
+<input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" name="dataDiNascita" >
+</div>
+<label for="dateOfDeath">Data di morte (opzionale)</label>
+<input type="date" th:field="*{dateOfDeath}" id="dateOfDeath" name="dataDelDecesso">
+<div>
+<span><input type="submit" value="Conferma"></span>
+<span><input type="reset" value="Resetta"></span>
+</div>
+</form>
+
+
+</body>
+</html>
