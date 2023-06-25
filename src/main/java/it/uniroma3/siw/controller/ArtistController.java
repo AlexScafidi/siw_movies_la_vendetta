@@ -51,6 +51,8 @@ public class ArtistController {
 		// controllo esistenza dell'artista
 		if (this.artistService.newArtist(artist)) {
 			model.addAttribute("artist", artist);
+			model.addAttribute("starredMovies", artist.getStarredMovies());
+			model.addAttribute("directedMovies", artist.getDirectedMovies()); 
 			return "all/artist.html";
 		}
 		return "admin/formNewArtist.html";
@@ -71,7 +73,10 @@ public class ArtistController {
 	
 	@GetMapping("/artists/{artistId}")
 	public String artist(@PathVariable("artistId") Long artistId, Model model) {
-		model.addAttribute("artist", this.artistService.getArtist(artistId));
+		Artist artist = this.artistService.getArtist(artistId); 
+		model.addAttribute("artist", artist);
+		model.addAttribute("starredMovies", artist.getStarredMovies()); 
+		model.addAttribute("directedMovies", artist.getDirectedMovies()); 
 		return "all/artist.html";
 	}
 }

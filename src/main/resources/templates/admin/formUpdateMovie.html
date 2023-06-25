@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="ISO-8859-1">
+<title>aggiorna film - siw movie</title>
+<link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<div><a href="/indexMovies">pagina film</a></div>
+<div><a href="/admin/manageMovies">Torna indietro</a></div>
+
+<div><h2>aggiorna film</h2></div>
+<div th:text="${movie.title} + ' (' + ${movie.year} +')'"></div>
+
+<form th:action="@{'/admin/formUpdateInfoMovie/' + ${movie.id}}">
+<span>Modifica informazioni</span>
+<button type="submit">modifica</button>
+</form>
+
+<!-- 
+<span>Regista : 
+<div th:if="${movie.director}">
+<div th:object="${movie.director}">
+<span th:text="*{name} + ' ' + *{surname}"></span>
+<a th:href="@{'/admin/removeDirectorToMovie/' + ${movie.id}}">RIMUOVI</a>
+</div>
+</div>
+<div th:unless="${movie.director}">
+<span>Non ci sta nessun regista</span>
+<a th:href="@{'/admin/directorToAdd/' + ${movie.id}}">INSERIRE</a>
+</div>
+</span>
+-->
+
+<span th:object="${movie.director}">
+<!-- se ci sta il regista -->
+<span th:if="${movie.director}">
+<form th:action="@{'/admin/removeDirectorToMovie/' + ${movie.id}}">
+<label>Regista : </label>
+<span th:text="*{name} + ' ' + *{surname}"></span>
+<button type="submit">rimuovi</button>
+</form>
+</span>
+<!-- se non ci sta il regista -->
+<span th:unless="${movie.director}">
+<form th:action="@{'/admin/directorToAdd/' + ${movie.id}}">
+<label>Regista : </label>
+<span>Non è presenta nessun regista...per ora</span>
+<button type="submit">aggiungi</button>
+</form>
+</span>
+</span>
+
+<!-- possibile modo per avere un bottone link -->
+ <form th:action="@{'/admin/updateActorsOnMovie/' + ${movie.id}}">
+ <label>Attori</label>
+    <button type="submit">modifica</button>
+  </form>
+  
+</body>
+</html>

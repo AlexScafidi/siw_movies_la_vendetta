@@ -17,7 +17,7 @@
 <ul>
 <li th:each="movie : ${movies}">
  <span th:text="${movie.title} + ' (' + ${movie.year} + ')'"></span> 
- <a th:href="@{'/formUpdateMovie' + '/' + ${movie.id}}" th:text=" aggiorna"></a>
+ <a th:href="@{'/admin/formUpdateMovie/' + ${movie.id}}" th:text=" aggiorna"></a>
 </li>
 </ul>
 </div>

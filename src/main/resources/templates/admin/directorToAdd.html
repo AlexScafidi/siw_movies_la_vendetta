@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>registi da aggiungere - siw movie</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+	<div>
+		<h2>regista da aggiungere per il film</h2>
+		<div>
+			<h2 th:text="${movie.title} + '(' + ${movie.year} + ')'"></h2>
+		</div>
+
+		<div th:if="${artists.isEmpty()}">Non ci sono registri da
+			aggiungere</div>
+		<div th:unless="${artists.isEmpty()}">
+			<ul>
+				<li th:each="artist : ${artists}"><a
+					th:href="@{'/admin/setDirectorToMovie/' + ${movie.id} + '/' + ${artist.id}}"
+					th:text="${artist.name} + ' ' + ${artist.surname}"></a></li>
+			</ul>
+		</div>
+</body>
+</html>

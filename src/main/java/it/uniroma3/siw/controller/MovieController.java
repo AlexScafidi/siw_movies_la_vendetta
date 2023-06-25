@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.time.Year;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.service.ArtistService;
@@ -54,7 +57,7 @@ public class MovieController {
 	@PostMapping(value = "/movies")
 	public String newMovie(@ModelAttribute("movie") Movie movie, Model model) {
 		// controllo se il film è corretto
-		if (this.movieService.newMovie(movie)) {
+		if (this.movieService.newMovie(movie) != null) {
 			model.addAttribute("movie", movie);
 			return "all/movie.html";
 		}
@@ -75,6 +78,10 @@ public class MovieController {
 		model.addAttribute("movie", this.movieService.getMovie(movieId));
 		return "all/movie.html";
 	}
+	
+	/***********************GESTIONE E MODIFICA DEI MOVIE***************************
+	 ******************************************************************************* 
+	 *******************************************************************************/
 	
 	/**
 	 * GET : pagina per gestire i film
@@ -138,9 +145,9 @@ public class MovieController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value="/admin/setDirectorToMovie/{directorId}/{movieId}")
-	public String setDirector(@PathVariable("directorId") Long directorId, @PathVariable("movieId") Long movieId, Model model) {
-		Movie movie = this.movieService.SetDirectorToMovie(movieId, directorId);
+	@GetMapping(value="/admin/setDirectorToMovie/{movieId}/{directorId}")
+	public String setDirector(@PathVariable("movieId") Long movieId, @PathVariable("directorId") Long directorId,Model model) {
+		Movie movie = this.movieService.setDirectorToMovie(movieId, directorId);
 		if(movie == null) return "movieError.hmtl"; 
 		model.addAttribute("movie",movie); 
 		return "admin/formUpdateMovie.html";
@@ -159,8 +166,8 @@ public class MovieController {
 		Movie movie = this.movieService.getMovie(movieId); 
 		if(movie == null) return "movieError.hmtl"; 
 		model.addAttribute("movie",movie); //il film 
-		model.addAttribute("actorsNotInMovie", this.artistService.findAllByactorInMoviesIsNotContaining(movie)); //tutti gli attori non nel film
-		model.addAttribute("actorsInMovie",movie.getActors());  //tutti gli attori del film
+		model.addAttribute("actorsNotInTheMovie", this.artistService.findAllActorsNotInTheMovie(movieId)); //tutti gli attori non nel film
+		model.addAttribute("actorsInTheMovie",movie.getActors());  //tutti gli attori del film
 		return "admin/actorsToAdd.html";
 	}
 	
@@ -172,7 +179,7 @@ public class MovieController {
 	 * @return
 	 */
 	@Transactional
-	@GetMapping(value="/admin/removeActorFromMovie/{actorId}/{movieId}")
+	@GetMapping(value="/admin/removeActorFromMovie/{movieId}/{actorId}")
 	public String removeActorFromMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model) {
 		
 		
@@ -181,25 +188,51 @@ public class MovieController {
 		if(movie == null) return "movieError.html";
 		//altrimenti 
 		model.addAttribute("movie",movie); //il film 
-		model.addAttribute("actorsNotInThisMovie", this.artistService.findAllByactorInMoviesIsNotContaining(movie)); //tutti gli attori non nel film
-		model.addAttribute("actorsInMovie",movie.getActors());  //tutti gli attori del film
+		model.addAttribute("actorsNotInTheMovie", this.artistService.findAllActorsNotInTheMovie(movieId)); //tutti gli attori non nel film
+		model.addAttribute("actorsInTheMovie",movie.getActors());  //tutti gli attori del film
 		return "admin/actorsToAdd.html"; 
 	}
 	
 	@Transactional
-	@GetMapping(value="/admin/addActorToMovie/{actorId}/{movieId}")
+	@GetMapping(value="/admin/addActorToMovie/{movieId}/{actorId}")
 	public String addActorToMovie(@PathVariable("actorId") Long actorId, @PathVariable("movieId") Long movieId, Model model){
+	
+		Movie movie = this.movieService.addActorToMovie(movieId,actorId); 
 		
-		//SOLUZIONE TEMPORANEA PER EVITARE DI AGGIUNGERE ALLA COLLEZIONE PIU' VOLTE LO STESSO FILM QUANDO RICARICO LA PAGINA
-		//if(!movie.getActors().contains(artist)) movie.getActors().add(this.aR.findById(idA).get()); 
-		
-		Movie movie = this.movieService.addActorFromMovie(movieId,actorId); 
-		
-		if(movie == null) return "movieError.html";
+		if(movie == null) return "all/movieError.html";
 		//altrimenti 
 		model.addAttribute("movie",movie); //il film 
-		model.addAttribute("actorsNotInThisMovie", this.artistService.findAllByactorInMoviesIsNotContaining(movie)); //tutti gli attori non nel film
-		model.addAttribute("actorsInMovie",movie.getActors());  //tutti gli attori del film
-		r
+		model.addAttribute("actorsNotInTheMovie", this.artistService.findAllActorsNotInTheMovie(movieId)); //tutti gli attori non nel film
+		model.addAttribute("actorsInTheMovie",movie.getActors());  //tutti gli attori del film
+		
+		return "admin/actorsToAdd.html"; 
+	}
+	
+	@GetMapping(value="/admin/formUpdateInfoMovie/{movieId}")
+	public String formInfoMovie(@PathVariable("movieId") Long movieId, Model model) {
+		Movie movie = this.movieService.getMovie(movieId);
+		if(movie == null) return "all/movieError.html"; 
+		//altrimenti 
+		model.addAttribute("movie",movie);
+		return "admin/formEditInfoMovie.html"; 
+	}
+	
+	/**
+	 * POST : metodo per cambiare le info di un film 
+	 * @param movieId
+	 * @param newTitle
+	 * @param newYear
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(value="/admin/updateInfo/{movieId}")
+	public String newInfoMovie(@PathVariable("movieId") Long movieId, @RequestParam String newTitle, @RequestParam Year newYear, Model model) {
+		Movie movie = this.movieService.changeInfo(movieId,newTitle,newYear); 
+		if(movie == null) return "all/movieError.html"; 
+		//altrimenti tutto a posto
+		model.addAttribute("movie", movie); 
+		return  "admin/formUpdateMovie.html";
+	}
+	
 
 }

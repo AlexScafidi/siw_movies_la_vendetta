@@ -1,5 +1,8 @@
 package it.uniroma3.siw.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +47,15 @@ public class ArtistService {
 	 */
 	public Artist getArtist(Long artistId) {
 		return this.artistRepository.findById(artistId).orElse(null); 
+	}
+
+	/**
+	 * restituisce tutti gli attori che non recitano nel movie
+	 * @param movie
+	 * @return
+	 */
+	public Iterable<Artist> findAllActorsNotInTheMovie(Long movieId) {
+		return this.artistRepository.findAllNotInMovie(movieId); 
 	}
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="ISO-8859-1">
+<title>aggiorna film - siw movie</title>
+<link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<div><a href="/indexMovies">pagina film</a></div>
+<div th:if="${movie}">
+<div><a th:href="@{'/admin/formUpdateMovie/' + ${movie.id}}">Torna indietro</a></div>
+</div>
+
+<form th:action="@{'/formUpdateInfo/' + ${movie.id}}" th:object="${movie}" method="post">
+<div>
+<label>Cambia titolo : </label>
+<input type="text" th:placeholder="*{title}" th:value="${newTitle}">
+</div>
+<div>
+<label>Cambia anno di uscita : </label>
+<input type="number" th:placeholder="*{year}" th:value="${newYear}">
+</div>
+<div>
+<button type="submit">Conferma</button>
+<button type="reset">Resetta</button>
+</div>
+</form>
+
+  
+</body>
+</html>

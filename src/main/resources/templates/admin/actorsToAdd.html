@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>aggiorna attori - siw movie</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div th:if="${movie}">
+<h2 th:text="${movie.title} + ' (' + ${movie.year} + ')'" ></h2>
+<a th:href="@{'/admin/formUpdateMovie/' + ${movie.id}}">Torna indietro</a>
+<h3>attori</h3>
+<div th:if="${!actorsInTheMovie.isEmpty()}">
+
+<ul>
+<li th:each="actor : ${actorsInTheMovie}">
+<span th:text="${actor.name} + ' ' + ${actor.surname}"></span>
+<a th:href="@{'/admin/removeActorFromMovie/' + ${movie.id} + '/' + ${actor.id}}">RIMUOVI</a>
+</li>
+</ul>
+</div>
+
+<div th:unless="${!actorsInTheMovie.isEmpty()}">
+<p>Non ci sono attori nel film</p>
+</div>
+
+<h3>attori da aggiungere</h3>
+
+<div th:if="${!actorsNotInTheMovie.isEmpty()}">
+<ul>
+<li th:each="actor : ${actorsNotInTheMovie}">
+<span th:text="${actor.name} + ' ' + ${actor.surname}"></span>
+<a th:href="@{'/admin/addActorToMovie/' + ${movie.id} + '/' + ${actor.id}}">AGGIUNGI</a>
+</li>
+</ul>
+</div>
+<div th:unless="${!actorsNotInTheMovie.isEmpty()}">
+<p>Non ci sono attori da aggiungere</p>
+</div>
+
+</div>
+
+<div th:unless="${movie}">
+<h3>ERRORE FILM</h3>
+</div>
+
+
+
+
+</body>
+</html>

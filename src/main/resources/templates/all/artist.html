@@ -14,10 +14,9 @@ ERRORE FILM
 </div>
 <div th_unless="${artist} == null">
 <div th:object="${artist}">
-<!-- nome -->
-<div th:text="*{name}"></div>
-<!-- cognome -->
-<div th:text="*{surname}"></div>
+<!-- identità -->
+<div th:text="*{name} + ' ' + *{surname}">
+</div>
 <!-- date -->
 <div> 
 [
@@ -28,6 +27,37 @@ ERRORE FILM
 <span th:text="*{dateOfDeath}"></span>
 </span>
 ]
+</div>
+
+<div>FILMOGRAFIA</div>
+
+<!-- filmografia : direzione-->
+<div>
+<span> film diretti : </span>
+<span th:if="${directedMovies == null || directedMovies.isEmpty()}">
+Non ha ancora diretto alcun film</span>
+<span th:unless="${directedMovies == null || directedMovies.isEmpty()}"> 
+<div th:each="directedMovie : ${directedMovies}" th:object="${directedMovie}">
+<a th:text="*{title} + ' (' + *{year} + ')'"
+   th:href="@{'/movies/' + *{id}}"></a>
+</div>
+</span>
+</div>
+
+
+<!-- filmografia : recitazione-->
+<div>
+<span> film recitati : </span>
+<span th:if="${starredMovies == null || starredMovies.isEmpty()}">
+Non ha ancora recitato in alcun film</span>
+<span th:unless="${starredMovies == null || starredMovies.isEmpty()}"> 
+<div th:each="starredMovie : ${directedMovies}" th:object="${starredMovie}">
+<a th:text="*{title} + ' (' + *{year} + ')'"
+   th:href="@{'/movies/' + *{id}}"></a>
+</div>
+</span>
+</div>
+
 </div>
 </div>
 
