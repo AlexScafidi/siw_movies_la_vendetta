@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ricerca per titolo - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+<h3>Ricerca per titolo</h3>   
+
+<a href="/indexMovies">torna indietro</a>
+
+<form th:action="@{/saerchMoviesByTitle}" method="post">
+<div>
+<label for="title">Ricerca film con titolo : </label>
+<input type="text" th:value="${titolo}" id="title" name="title">
+</div>
+<div>
+<button type="submit" value="Conferma">Conferma</button>
+<button type="reset" value="Resetta">Resetta</button>
+</div> 
+</form>
+
+</body>
+</html>

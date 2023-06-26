@@ -14,14 +14,14 @@
 <div><a th:href="@{'/admin/formUpdateMovie/' + ${movie.id}}">Torna indietro</a></div>
 </div>
 
-<form th:action="@{'/formUpdateInfo/' + ${movie.id}}" th:object="${movie}" method="post">
+<form th:action="@{'/admin/updateInfo/' + ${movie.id}}" th:object="${movie}" method="post">
 <div>
 <label>Cambia titolo : </label>
-<input type="text" th:placeholder="*{title}" th:value="${newTitle}">
+<input type="text" th:placeholder="*{title}" th:value="${newTitle}" name="newTitle">
 </div>
 <div>
 <label>Cambia anno di uscita : </label>
-<input type="number" th:placeholder="*{year}" th:value="${newYear}">
+<input type="number" th:placeholder="*{year}" th:value="${newYear}" name="newYear">
 </div>
 <div>
 <button type="submit">Conferma</button>

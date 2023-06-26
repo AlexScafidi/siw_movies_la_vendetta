@@ -1,9 +1,8 @@
 package it.uniroma3.siw.service;
 
 import java.time.Year;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -129,6 +128,40 @@ public class MovieService {
 			this.saveMovie(movie);
 		}
 		return movie; 
+	}
+
+	/**
+	 * metodo per trovare tutti i film usciti in una certa data
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Movie> findMoviesByYear(Year year) {
+		List<Movie> movies = new LinkedList<>();
+		Iterable<Movie> movieFounded = this.movieRepository.findByYear(year); 
+		if(year == null) return movies; 
+		for(Movie movie : movieFounded) movies.add(movie); 
+		return movies; 
+	}
+	
+	private String capitalize(String string) {
+		StringBuilder sb = new StringBuilder(Character.toUpperCase(string.charAt(0)));
+		sb.append(string.substring(1)); 
+		return sb.toString(); 
+	}
+
+	/**
+	 * metodo per trovare tutti i film usciti in una certa data
+	 * @param year
+	 * @return
+	 */
+	@Transactional
+	public List<Movie> findMoviesByTitle(String title) {
+		List<Movie> movies = new LinkedList<>();
+		Iterable<Movie> movieFounded = this.movieRepository.findByTitle(title); 
+		if(title == null) return movies; 
+		for(Movie movie : movieFounded) movies.add(movie); 
+		return movies; 
 	}
 
 }

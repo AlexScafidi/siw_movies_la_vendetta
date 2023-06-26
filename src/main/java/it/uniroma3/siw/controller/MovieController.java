@@ -79,6 +79,55 @@ public class MovieController {
 		return "all/movie.html";
 	}
 	
+	/***********************PER RICERCA***************************
+	 ******************************************************************************* 
+	 *******************************************************************************/
+	
+	/**
+	 * GET : pagina per ricercare tutti i film usciti in una certa data
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(value="/formSearchMoviesByYear")
+	public String formSearchMovieByYear() {
+		return "all/formSearchMoviesByYear.html"; 
+	}
+	
+	/**
+	 * POST : la pagina con tutti i film usciti nell'anno specificato
+	 * @param year
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(value="/saerchMoviesByYear")
+	public String searchMoviesByYear(@RequestParam Year year, Model model) {
+		model.addAttribute("moviesFounded", this.movieService.findMoviesByYear(year));
+	model.addAttribute("year",year); 
+		return "all/moviesFoundByYear.html"; 
+	}
+	
+	/**
+	 * GET : pagina per ricercare tutti i film che hanno nel titolo la stringa inserita
+	 */
+	@GetMapping(value="/formSearchMoviesByTitle")
+	public String formSearchMoviesByTitle() {
+		return "all/formSearchMoviesByTitle.html"; 
+	}
+	
+	/**
+	 * POST : la pagina con tutti i film che hanno nel titolo la stringa inserita
+	 * @param title
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(value="/saerchMoviesByTitle")
+	public String searchMoviesByTitle(@RequestParam String title, Model model) {
+		model.addAttribute("moviesFounded", this.movieService.findMoviesByTitle(title));
+	model.addAttribute("title",title); 
+		return "all/moviesFoundByTitle.html"; 
+	}
+	
+	
 	/***********************GESTIONE E MODIFICA DEI MOVIE***************************
 	 ******************************************************************************* 
 	 *******************************************************************************/
@@ -226,7 +275,7 @@ public class MovieController {
 	 * @return
 	 */
 	@PostMapping(value="/admin/updateInfo/{movieId}")
-	public String newInfoMovie(@PathVariable("movieId") Long movieId, @RequestParam String newTitle, @RequestParam Year newYear, Model model) {
+	public String newInfoMovie(@PathVariable("movieId") Long movieId, @RequestParam("newTitle") String newTitle, @RequestParam("newYear")  Year newYear, Model model) {
 		Movie movie = this.movieService.changeInfo(movieId,newTitle,newYear); 
 		if(movie == null) return "all/movieError.html"; 
 		//altrimenti tutto a posto

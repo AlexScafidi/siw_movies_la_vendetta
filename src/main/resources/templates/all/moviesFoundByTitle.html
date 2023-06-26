@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+<h3 th:text="'Tutti i film con titolo : ' + ${title}"></h3>   
+
+<div><a href="/indexMovies">Torna alla pagina dei film</a></div>
+<div><a href="/formSearchMoviesByTitle">Torna indietro</a></div>
+
+<div th:if="${moviesFounded.isEmpty()}">
+ATTENZIONE : NESSUN FILM USCITO IN TALE TITOLO</div>
+<div th:unless="${moviesFounded.isEmpty()}">
+<div th:each="movie : ${moviesFounded}">
+<a th:href="@{'/movies' + '/' + ${movie.id}}"
+   th:text="${movie.title} + ' (' + ${movie.year} + ')'"></a>
+</div>
+</div>
+
+
+</body>
+</html>

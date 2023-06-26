@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ricerca per anno - SW(revenge)</title>
+</head>
+<body>
+
+<h1>SIW MOVIES - LA VENDETTA</h1>
+<h3>Ricerca per anno</h3>   
+
+<a href="/indexMovies">torna indietro</a>
+
+<form th:action="@{/saerchMoviesByYear}" method="post">
+<div>
+<label for="year">Ricerca film usciti nel : </label>
+<input type="number" th:value="${year}" id="year" name="year">
+</div>
+<div>
+<button type="submit" value="Conferma">Conferma</button>
+<button type="reset" value="Resetta">Resetta</button>
+</div> 
+</form>
+
+</body>
+</html>

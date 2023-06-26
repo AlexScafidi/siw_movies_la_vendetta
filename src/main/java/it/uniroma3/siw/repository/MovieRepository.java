@@ -30,4 +30,13 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 	@Query(nativeQuery = true, value = "SELECT * FROM movie WHERE title LIKE 'c%'")
 	public List<Movie> findMoviesThatStartWith(Character c);
 
+	/**
+	 * riporta tutti i film che contengono nel titolo la stringa
+	 * 
+	 * @param title
+	 * @return
+	 */
+	@Query(nativeQuery = true, value = "SELECT * FROM movie WHERE title LIKE '%:title%'")
+	public Iterable<Movie> findByTitle(String title);
+
 }
