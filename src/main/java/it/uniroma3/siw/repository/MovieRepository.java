@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import it.uniroma3.siw.model.Movie;
 
@@ -28,7 +29,7 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 	public List<Movie> findByYear(Year year);
 
 	@Query(nativeQuery = true, value = "SELECT * FROM movie WHERE title LIKE 'c%'")
-	public List<Movie> findMoviesThatStartWith(Character c);
+	public List<Movie> findMoviesThatStartWith(char c);
 
 	/**
 	 * riporta tutti i film che contengono nel titolo la stringa
@@ -36,7 +37,15 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 	 * @param title
 	 * @return
 	 */
-	@Query(nativeQuery = true, value = "SELECT * FROM movie WHERE title LIKE '%:title%'")
+	@Query(nativeQuery = true, value = "SELECT * FROM movie WHERE title LIKE ':title'")
 	public Iterable<Movie> findByTitle(String title);
+	
+	@Query(nativeQuery=true,
+			value="SELECT * FROM movie ORDER BY title,year DESC")
+	public Iterable<Movie> findMovieOrderByTitleAndYearAsc(); 
+	
+	@Query(nativeQuery=true, value="select * from movie order by title asc,year desc")
+	@Override
+	public Iterable<Movie> findAll(); 
 
 }

@@ -1,8 +1,10 @@
 package it.uniroma3.siw.service;
 
 import java.time.Year;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -109,7 +111,7 @@ public class MovieService {
 		Artist actor = this.artistService.getArtist(actorId); 
 		if(movie == null || actor == null) return null; 
 		//altrimenti aggiorno
-		List<Artist> actors = movie.getActors(); 
+		Set<Artist> actors = new HashSet<>(movie.getActors()); 
 		actors.add(actor); 
 		return this.saveMovie(movie); 
 	}

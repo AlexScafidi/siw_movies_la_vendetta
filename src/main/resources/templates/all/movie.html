@@ -19,9 +19,41 @@ ERRORE FILM
 <div th:text="*{year}"></div>
 
 
-
+<form th:action="@{'/formNewReview/' + ${movie.id}}"
+style="
+padding : 5px 0; 
+border: 2px black solid;
+">
+<div>
+<label for="title">Titolo : </label>
+<input type="text" placeholder="Inserisci un titolo...">
+<!-- voto -->
+</div>
+  <fieldset style="width: 5cm">
+    <legend>Inposta un voto tra 1 a 5</legend>
+    <div>
+      <input type="radio" id="voteChioce1" name="vote" value="1" />
+      <label for="voteChoice1">1</label>
+      <input type="radio" id="voteChioce2" name="vote" value="2" />
+      <label for="voteChoice1">2</label>
+      <input type="radio" id="voteChioce3" name="vote" value="3" />
+      <label for="voteChoice1">3</label>
+      <input type="radio" id="voteChioce4" name="vote" value="4" />
+      <label for="voteChoice1">4</label>
+      <input type="radio" id="voteChioce5" name="vote" value="5" />
+      <label for="voteChoice1">5</label>
+    </div>
+  </fieldset>
+  <!-- testo recensione -->
+<div>
+<label>testo recensione</label>
+<br>
+<textarea rows="1" cols="50" placeholder="Inserisci una recensione..."></textarea>
+</div>
+<button type="submit" value="Aggiungi commento">Aggiungi commento</button>
+</form>
 <div th:if="${movie.reviews.isEmpty()}">
-Sei il primo a recensire il film
+<span>Nessun commento</span>
 </div>
 <div th:unless="${movie.reviews.isEmpty()}">
 <div th:each="review : *{reviews}">
