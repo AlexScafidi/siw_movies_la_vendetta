@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -12,11 +12,52 @@
 			</div>
 			<div th:unless="${userDetails}">
 				<a href="/login">Login</a>
+				<a href="/registration">Registrati</a>
+			</div>
 			</div>
 
 <h1>SIW MOVIES - LA VENDETTA</h1>
 <div><a href="/indexMovies">Sezione film</a></div>
 <div><a href="/indexArtists">Sezione artisti</a></div>
+<div> <a th:if="${userDetails}" th:href="@{'/user/personalArea/' + ${userDetails.username}}">Sezione personale</a></div>
 
 </body>
 </html>
+
+
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SIW Movies</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="title">
+      <h1>SIW Movies</h1>
+    </div>
+    <div class="login-register">
+    <form action="/login">
+      <button>Login</button>
+      </form>
+      <button>Registration</button>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#">Artist</a></li>
+      <li><a href="#">Movies</a></li>
+    </ul>
+  </nav>
+
+  <footer>
+    <div class="footer-center">
+      <p>SIW Movies - Uniroma 3</p>
+    </div>
+  </footer>
+</body>
+</html>
+-->

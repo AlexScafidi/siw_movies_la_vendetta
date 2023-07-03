@@ -11,7 +11,7 @@
 
 <a href="/indexMovies">torna indietro</a>
 
-<form th:action="@{/saerchMoviesByYear}" method="post">
+<form th:action="@{/saerchMovies/ByYear}" method="post">
 <div>
 <label for="year">Ricerca film usciti nel : </label>
 <input type="number" th:value="${year}" id="year" name="year">

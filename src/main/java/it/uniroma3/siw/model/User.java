@@ -1,6 +1,7 @@
 
 package it.uniroma3.siw.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -28,13 +29,12 @@ public class User {
 	@Column(nullable = false, unique = true)
 	@NotBlank
 	@Email
-	private String email;
-//lo user non ha la visibilità sui suoi commenti/recensioni
-//	@OneToMany(mappedBy = "owner")
-//	private List<Review> reviews;
+	private String email; 
+	@Column(nullable = false)
+	private LocalDateTime dateOfIscr; 
 
 	public User() {
-		//this.reviews = new LinkedList<>();
+		
 	}
 
 	public Long getId() {
@@ -68,14 +68,16 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
 
-//	public List<Review> getReviews() {
-//		return reviews;
-//	}
-//
-//	public void setReviews(List<Review> reviews) {
-//		this.reviews = reviews;
-//	}
+	public LocalDateTime getDateOfIscr() {
+		return dateOfIscr;
+	}
+
+	public void setDateOfIscr(LocalDateTime dateOfIscr) {
+		this.dateOfIscr = dateOfIscr;
+	}
 
 	@Override
 	public int hashCode() {

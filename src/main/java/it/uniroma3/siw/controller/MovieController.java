@@ -15,6 +15,7 @@ import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.service.ArtistService;
 import it.uniroma3.siw.service.MovieService;
 import jakarta.transaction.Transactional;
+import jakarta.websocket.server.PathParam;
 
 @Controller
 public class MovieController {
@@ -23,10 +24,6 @@ public class MovieController {
 	private MovieService movieService;
 	@Autowired ArtistService artistService; 
 	
-	@GetMapping(value = "/")
-	public String index() {
-		return "all/index.html";
-	}
 
 	/**
 	 * GET : pagina principale dei film
@@ -64,7 +61,7 @@ public class MovieController {
 		return "admin/formNewMovie.html";
 	}
 
-	@GetMapping(value = "/formNewMovie")
+	@GetMapping(value = "/admin/formNewMovie")
 	public String formNewMovie(Model model) {
 		model.addAttribute("movie", new Movie());
 		return "admin/formNewMovie.html";
@@ -88,7 +85,7 @@ public class MovieController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(value="/formSearchMoviesByYear")
+	@GetMapping(value="/formSearchMovies/ByYear")
 	public String formSearchMovieByYear() {
 		return "all/formSearchMoviesByYear.html"; 
 	}
@@ -99,7 +96,7 @@ public class MovieController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping(value="/saerchMoviesByYear")
+	@PostMapping(value="/saerchMovies/ByYear")
 	public String searchMoviesByYear(@RequestParam Year year, Model model) {
 		model.addAttribute("moviesFounded", this.movieService.findMoviesByYear(year));
 	model.addAttribute("year",year); 
@@ -109,7 +106,7 @@ public class MovieController {
 	/**
 	 * GET : pagina per ricercare tutti i film che hanno nel titolo la stringa inserita
 	 */
-	@GetMapping(value="/formSearchMoviesByTitle")
+	@GetMapping(value="/formSearchMovies/ByTitle")
 	public String formSearchMoviesByTitle() {
 		return "all/formSearchMoviesByTitle.html"; 
 	}
@@ -120,15 +117,38 @@ public class MovieController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping(value="/saerchMoviesByTitle")
+	@PostMapping(value="/saerchMovies/ByTitle")
 	public String searchMoviesByTitle(@RequestParam String title, Model model) {
 		model.addAttribute("moviesFounded", this.movieService.findMoviesByTitle(title));
 	model.addAttribute("title",title); 
 		return "all/moviesFoundByTitle.html"; 
 	}
 	
+	/***********************ADMIN : RESTO***************************
+	 ******************************************************************************* 
+	 *******************************************************************************/
 	
-	/***********************GESTIONE E MODIFICA DEI MOVIE***************************
+	@GetMapping(value="/admin/indexMovies")
+	public String adminIndexMovies() {
+		return "admin/indexMovies.html";
+	}
+	
+	@GetMapping(value="/admin/indexArtists")
+	public String adminIndexArtists() {
+		return "admin/indexArtists.html";
+	}
+	
+	@GetMapping(value="/admin/deleteReview/{movieId}/{reviewId}")
+	public String deleteReview(@PathParam("movieId") Long movieId, @PathParam("reviewId") Long reviewId, Model model) {
+		Movie movie = this.movieService.deleteReviewFromMovie(movieId,reviewId); 
+		if(movie == null) return "movieError.hmtl"; 
+		model.addAttribute("movie",movie); 
+		return  "all/movie.html";
+	}
+		
+
+	
+	/***********************ADMIN : GESTIONE E MODIFICA DEI MOVIE***************************
 	 ******************************************************************************* 
 	 *******************************************************************************/
 	
@@ -266,14 +286,6 @@ public class MovieController {
 		return "admin/formEditInfoMovie.html"; 
 	}
 	
-	/**
-	 * POST : metodo per cambiare le info di un film 
-	 * @param movieId
-	 * @param newTitle
-	 * @param newYear
-	 * @param model
-	 * @return
-	 */
 	@PostMapping(value="/admin/updateInfo/{movieId}")
 	public String newInfoMovie(@PathVariable("movieId") Long movieId, @RequestParam("newTitle") String newTitle, @RequestParam("newYear")  Year newYear, Model model) {
 		Movie movie = this.movieService.changeInfo(movieId,newTitle,newYear); 
@@ -283,11 +295,9 @@ public class MovieController {
 		return  "admin/formUpdateMovie.html";
 	}
 	
-	/*******************************REVIEWWW
-	 * 
-	 */
+	/***********************ADMIN : GESTIONE E MODIFICA DEGLI ARTISTI***************************
+	 ******************************************************************************* 
+	 *******************************************************************************/
 	
-//	@GetMapping(value="formNew")
 	
-
 }

@@ -2,11 +2,21 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>aggiorna attori - siw movie</title>
+<title>aggiorna attori - SW(revenge)</title>
 <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+
+		<div id="logInOut">
+			<div th:if="${userDetails}" th:object="${userDetails}">
+				<span th:text="*{username}"></span> <a href="/logout">Logout</a>
+			</div>
+			<div th:unless="${userDetails}">
+				<a href="/login">Login</a>
+				<a href="/registration">Registrati</a>
+			</div>
+			</div>
 
 <div th:if="${movie}">
 <h2 th:text="${movie.title} + ' (' + ${movie.year} + ')'" ></h2>

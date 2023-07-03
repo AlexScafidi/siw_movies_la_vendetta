@@ -8,9 +8,9 @@
 
 <h1>SIW MOVIES - LA VENDETTA</h1>
 
-<a href="/indexArtists">torna indietro</a>
+<a href="/admin/indexArtists">torna indietro</a>
 
-<form method="post" th:object="${artist}" th:action="@{/artists}">
+<form method="post" th:object="${artist}" th:action="@{/admin/artists}">
 <div>
 <label for="name">Nome</label>
 <input type="text" placeholder="Inseririsci il nome..." th:field="*{name}" id="name" name="nome" autocapitalize="on">

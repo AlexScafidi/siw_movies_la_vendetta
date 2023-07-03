@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cambio password - SW(revenge)</title>
+</head>
+<body>
+
+
+
+
+<div>
+<div><h3>Cambio password</h3></div>
+<div>
+<form th:action="@{'/user/changePassword'}" method="post" th:object="${credentials}">
+<label for="pwd">Cambia password: </label>
+<input type="password" th:value="${newPassword}"  id="newPassword" name="newPassoword">
+<!--  <span th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></span> -->
+<button type="submit" value="Aggiorna">Aggiorna</button>
+</form>
+</div>
+
+</div>
+</body>
+</html>

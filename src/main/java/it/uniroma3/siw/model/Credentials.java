@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Credentials {
 
-	public final static String DEFEULT_ROLE = "user";
+	public final static String USER_ROLE = "user";
 	public final static String ADMIN_ROLE = "admin";
 
 	@Id

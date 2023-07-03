@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Login - SW(revenge)</title>
+  <meta charset="UTF-8">
+  <title>Login - SIW Movies</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <div class="title">
+      <h1>SIW Movies</h1>
+    </div>
+    <div class="login-register">
+      <button>Login</button>
+      <button>Registration</button>
+    </div>
+  </header>
 
-<h1>SIW MOVIES - LA VENDETTA</h1>
-	<h1>Login</h1>
-	<form th:action="@{/login}" method="POST">
-			<div>
-				<span>Username:</span>
-				<span><input name="username" type="text" required /></span>
-			</div>
-			<div>
-				<span>Password:</span>
-				<span><input name="password" type="password" required /></span>
-			</div>
-			<div>
-				<span th:if="${param.error != null}">Username o password errati</span>
-			</div>
-			<div>
-				<span><button type="submit">Login</button></span>
-			</div>
-	</form>
-	<div>
-		<a th:href="@{/registration}" th:text="Registrati">Registrati</a>
-	</div>
+  <h1>Login</h1>
+
+  <a href="/index">Go back</a>
+
+  <form th:action="@{/login}" method="POST">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" name="username" type="text" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" required>
+    </div>
+    <div>
+      <span th:if="${param.error != null}">Wrong username or password</span>
+    </div>
+    <div>
+      <button type="submit">Login</button>
+    </div>
+  </form>
+
+  <footer>
+    <div class="footer-center">
+      <p>SIW Movies - Uniroma 3</p>
+    </div>
+  </footer>
 </body>
 </html>

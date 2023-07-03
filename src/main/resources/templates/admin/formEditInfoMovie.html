@@ -2,14 +2,24 @@
 <html lang="it">
 <head>
 <meta charset="ISO-8859-1">
-<title>aggiorna film - siw movie</title>
+<title>aggiorna film - SW(revenge)</title>
 <link rel="stylesheet" href="/style.css">
 
 </head>
 
 <body>
 
-<div><a href="/indexMovies">pagina film</a></div>
+		<div id="logInOut">
+			<div th:if="${userDetails}" th:object="${userDetails}">
+				<span th:text="*{username}"></span> <a href="/logout">Logout</a>
+			</div>
+			<div th:unless="${userDetails}">
+				<a href="/login">Login</a>
+				<a href="/registration">Registrati</a>
+			</div>
+			</div>
+
+<div><a href="/admin/indexMovies">pagina film</a></div>
 <div th:if="${movie}">
 <div><a th:href="@{'/admin/formUpdateMovie/' + ${movie.id}}">Torna indietro</a></div>
 </div>

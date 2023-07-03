@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>area personale - SW(revenge)</title>
+</head>
+<body>
+
+<h1 th:text="'siw movies - area personale: ' + ${credentials.username}" ></h1>
+
+
+<div>
+<div><h3>operazioni disponibili</h3></div>
+<div>
+<form th:action="@{'/user/formChangePwd/' + ${credentials.id}}">
+<label for="pwd">Cambia password</label>
+<button type="submit" value="Aggiorna">Aggiorna</button>
+</form>
+</div>
+<div>
+<form th:action="@{'/user/formChanceUsername/' + ${credentials.id} + '/' + ${user.id}}">
+<label for="username">Cambia username</label>
+<button type="submit" value="Aggiorna">Aggiorna</button>
+</form>
+</div>
+<div>
+<form th:action="@{'/user/formChangeEmail/' + ${user.id}}">
+<label for="email">Cambia email</label>
+<button type="submit" value="Aggiorna">Aggiorna</button>
+</form>
+</div>
+<div>
+<form th:action="@{'/user/formChangeNameAndSurname/' + ${user.id}}">
+<label for="nameAndSurname">Cambia nome e cognome</label>
+<button type="submit" value="Aggiorna">Aggiorna</button>
+</form>
+</div>
+</div>
+</body>
+</html>

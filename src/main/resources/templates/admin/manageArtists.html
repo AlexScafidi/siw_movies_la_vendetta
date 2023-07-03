@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Gestione artisti - siw movie</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div><h2>AGGIORNA GLI ARTISTI</h2></div>
+
+<div><a href="/admin/indexArtists">Pagina degli attori</a></div><br>
+<div th:if="${artists.isEmpty()}">Non ci sono film da gestire</div>
+<div th:unless="${artists.isEmpty()}">
+<div>Lista attori</div>
+<ul>
+<li th:each="artist : ${artists}">
+ <span th:text="${artist.name} + ' ' + ${artist.surname}"></span> 
+ <a th:href="@{'/admin/formUpdateArtist/' + ${artist.id}}" th:text=" aggiorna"></a>
+</li>
+</ul>
+</div>
+
+</body>
+</html>

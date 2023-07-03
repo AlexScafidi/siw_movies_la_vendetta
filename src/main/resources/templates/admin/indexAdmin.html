@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -6,11 +6,21 @@
 </head>
 <body>
 
-<h1>SIW MOVIES - LA VENDETTA</h1>
+		<div id="logInOut">
+			<div th:if="${userDetails}" th:object="${userDetails}">
+				<span th:text="*{username}"></span> <a href="/logout">Logout</a>
+			</div>
+			<div th:unless="${userDetails}">
+				<a href="/login">Login</a>
+				<a href="/registration">Registrati</a>
+			</div>
 
-<h2>operazioni</h2>
-<div><a href="/indexAdminMovies">sezione movies</a></div>
-<div><a href="/indexAdminArtists">sezione artist</a></div>
-<div><a href="/otherOp">sezione admin</a></div>
+<h1>SIW MOVIES - LA VENDETTA</h1>
+<h3>[admin mode]</h3>
+<div><a th:href="@{'/admin/indexMovies'}">Sezione film</a></div>
+<div><a th:href="@{'/admin/indexArtists'}">Sezione artisti</a></div>
+<div><a th:href="@{'/admin/indexManagament'}">sezione gestione</a></div>
+<div> <a th:if="${userDetails}" th:href="@{'/user/personalArea/' + ${userDetails.username}}">Area personale</a></div>
 </body>
 </html>
+

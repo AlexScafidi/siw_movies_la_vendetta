@@ -46,7 +46,7 @@ public class ArtistController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/artists")
+	@PostMapping("/admin/artists")
 	public String newArtist(@ModelAttribute("artist") Artist artist, Model model) {
 		// controllo esistenza dell'artista
 		if (this.artistService.newArtist(artist)) {
@@ -64,7 +64,7 @@ public class ArtistController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/formNewArtist")
+	@GetMapping("/admin/formNewArtist")
 	public String formNewArtist(Model model) {
 		model.addAttribute("artist", new Artist());
 		return "admin/formNewArtist.html";

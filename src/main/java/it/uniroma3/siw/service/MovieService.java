@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import it.uniroma3.siw.model.Artist;
 import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.repository.MovieRepository;
 import jakarta.transaction.Transactional;
 
@@ -20,7 +21,9 @@ public class MovieService {
 	@Autowired
 	private MovieRepository movieRepository;
 	@Autowired 
-	private ArtistService artistService; 
+	private ArtistService artistService;
+	@Autowired
+	private ReviewService reviewService; 
 
 	@Transactional
 	public Iterable<Movie> getAllMovies() {
@@ -164,6 +167,23 @@ public class MovieService {
 		if(title == null) return movies; 
 		for(Movie movie : movieFounded) movies.add(movie); 
 		return movies; 
+	}
+
+	/**
+	 * metodo per rimuovere una recensione da un film
+	 * @param movieId
+	 * @param reviewId
+	 * @return
+	 */
+	public Movie deleteReviewFromMovie(Long movieId, Long reviewId) {
+		Movie movie = this.getMovie(movieId); 
+		Review review = this.reviewService.getReview(reviewId); 
+		if(movie == null || review == null) return null; 
+		//altrimenti aggiorno
+		List<Review> reviews = movie.getReviews();
+		reviews.remove(review); 
+		//salvo anche sul db
+		return this.saveMovie(movie); 
 	}
 
 }

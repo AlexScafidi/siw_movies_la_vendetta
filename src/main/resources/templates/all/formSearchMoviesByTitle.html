@@ -11,7 +11,7 @@
 
 <a href="/indexMovies">torna indietro</a>
 
-<form th:action="@{/saerchMoviesByTitle}" method="post">
+<form th:action="@{/saerchMovies/ByTitle}" method="post">
 <div>
 <label for="title">Ricerca film con titolo : </label>
 <input type="text" th:value="${titolo}" id="title" name="title">
